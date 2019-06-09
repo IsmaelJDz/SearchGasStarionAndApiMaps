@@ -1,21 +1,16 @@
-class UI {
-    constructor() {
+class API {
+  async obtenerDatos() {
+    //obtener datos desde la API
 
-         // Iniciar el mapa
-         this.mapa = this.inicializarMapa();
+    const total = 100;
 
-    }
+    const datos = await fetch(
+      `https://api.datos.gob.mx/v1/precio.gasolina.publico?pageSize=${total}`
+    );
+    const respuestaJSON = await datos.json();
 
-    inicializarMapa() {
-         // Inicializar y obtener la propiedad del mapa
-         const map = L.map('mapa').setView([19.390519, -99.3739778], 6);
-         const enlaceMapa = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-         L.tileLayer(
-             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-             attribution: '&copy; ' + enlaceMapa + ' Contributors',
-             maxZoom: 18,
-             }).addTo(map);
-         return map;
-
-    }
+    return {
+      respuestaJSON
+    };
+  }
 }
